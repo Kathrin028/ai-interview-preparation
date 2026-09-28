@@ -5,10 +5,6 @@ const connectDB = require("./config/db");
 
 dotenv.config();
 
-
-// Connect Database
-connectDB();
-
 const app = express();
 
 // =======================
@@ -87,6 +83,13 @@ app.use("/api/learning", learningRoutes);
 // =======================
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+// Connect Database and then start server
+connectDB().then(() => {
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+  });
+}).catch(err => {
+  console.error("Failed to connect to MongoDB. Server not started.");
+  console.error(err);
+  process.exit(1);
 });
