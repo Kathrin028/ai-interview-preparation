@@ -45,7 +45,7 @@ function QuestionCard({
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
           placeholder="Type your detailed answer here..."
-          className="w-full flex-1 min-h-[200px] border border-slate-200 bg-slate-50 rounded-xl p-5 text-slate-700 text-lg resize-y focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:bg-white outline-none transition"
+          className="w-full min-h-[180px] sm:min-h-[220px] lg:min-h-[280px] border border-slate-200 bg-slate-50 rounded-xl p-5 text-slate-700 text-lg resize-y focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:bg-white outline-none transition"
         />
 
       </div>

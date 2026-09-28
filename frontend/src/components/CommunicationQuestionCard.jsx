@@ -85,11 +85,10 @@ function CommunicationQuestionCard({
       </div>
 
       <textarea
-        rows="8"
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
         placeholder="Type your answer here or click Speak to record..."
-        className="w-full border-2 border-gray-300 rounded-xl p-4 text-lg resize-none focus:border-blue-500 focus:outline-none"
+        className="w-full min-h-[180px] sm:min-h-[220px] lg:min-h-[280px] border-2 border-gray-300 rounded-xl p-5 text-lg resize-y focus:border-blue-500 focus:outline-none transition"
       />
       {!isSpeechSupported && (
         <p className="text-sm text-red-500 mt-2">
