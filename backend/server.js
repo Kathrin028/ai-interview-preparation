@@ -12,16 +12,23 @@ const app = express();
 // =======================
 const allowedOrigins = ["http://localhost:5173", "http://localhost:5174", "http://localhost:3000"];
 if (process.env.FRONTEND_URL) {
-  allowedOrigins.push(process.env.FRONTEND_URL);
+  // Remove trailing slash if user accidentally included it
+  const cleanUrl = process.env.FRONTEND_URL.replace(/\/$/, "");
+  allowedOrigins.push(cleanUrl);
 }
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin) || origin.startsWith("http://localhost:")) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin) || origin.startsWith("http://localhost:")) {
+      return callback(null, true);
     }
+    
+    // Log the blocked origin to the console for easy debugging in Render logs
+    console.warn(`[CORS] Blocked request from unauthorized origin: ${origin}`);
+    return callback(new Error("Not allowed by CORS"));
   },
   credentials: true
 }));
